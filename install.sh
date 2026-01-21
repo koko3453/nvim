@@ -4,7 +4,7 @@
 set -e
 
 NVIM_DIR="$HOME/.config/nvim"
-REPO_URL="https://github.com/koko3453/nvim-config.git"
+REPO_URL="https://github.com/koko3453/nvim.git"
 
 echo "Installing Neovim config..."
 
