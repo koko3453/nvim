@@ -23,15 +23,26 @@ echo "[1/7] Installing system dependencies..."
 sudo apt update
 sudo apt install -y git curl wget unzip build-essential
 
-# Install Neovim (latest stable via PPA)
+# Install Neovim (requires 0.11+)
 echo "[2/7] Installing Neovim..."
-if ! command -v nvim &> /dev/null; then
+REQUIRED_NVIM="0.11"
+install_neovim() {
     sudo apt install -y software-properties-common
     sudo add-apt-repository -y ppa:neovim-ppa/unstable
     sudo apt update
     sudo apt install -y neovim
+}
+
+if ! command -v nvim &> /dev/null; then
+    install_neovim
 else
-    echo "  Neovim already installed: $(nvim --version | head -1)"
+    NVIM_VER=$(nvim --version | head -1 | grep -oP 'v\K[0-9]+\.[0-9]+')
+    if [ "$(printf '%s\n' "$REQUIRED_NVIM" "$NVIM_VER" | sort -V | head -1)" != "$REQUIRED_NVIM" ]; then
+        echo "  Neovim $NVIM_VER found, but $REQUIRED_NVIM+ required. Upgrading..."
+        install_neovim
+    else
+        echo "  Neovim $NVIM_VER already installed (meets $REQUIRED_NVIM+ requirement)"
+    fi
 fi
 
 # Install Node.js (for LSP servers)

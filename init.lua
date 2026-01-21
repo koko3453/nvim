@@ -1,4 +1,4 @@
--- dadfsdfsdf:qdsdsdsdssddsdsdsdssdsdsd:qdsdsdsdssddsdsdsdssd sdas:q
+-- Neovim Config (requires Neovim 0.11+)
 -- ==================================================
 -- 1. Lazy.nvim Bootstrap
 -- =====================================================
